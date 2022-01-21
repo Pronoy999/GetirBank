@@ -13,5 +13,6 @@ namespace GetirBank.Database.Models
         public bool IsActive { get; set; }
         public DateTime CreatedAt { get; set; }
         public List<Account> Accounts { get; set; }
+        public Credentials Credentials { get; set; }
     }
 }

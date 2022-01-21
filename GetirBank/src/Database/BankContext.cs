@@ -19,6 +19,7 @@ namespace GetirBank.Database
             new CustomerEntityConfiguration().Configure(modelBuilder.Entity<Customer>());
             new AccountEntityConfiguration().Configure(modelBuilder.Entity<Account>());
             new TransactionEntityConfiguration().Configure(modelBuilder.Entity<Transaction>());
+            new CredentialsEntityConfiguration().Configure(modelBuilder.Entity<Credentials>());
         }
     }
 }

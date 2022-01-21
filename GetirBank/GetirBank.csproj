@@ -5,6 +5,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <Folder Include="src\Controllers" />
       <Folder Include="tests" />
     </ItemGroup>
 
