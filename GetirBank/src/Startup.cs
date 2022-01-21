@@ -16,12 +16,15 @@ namespace GetirBank
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            var builder = new ConfigurationBuilder()
+                .AddJsonFile("src/appsettings.json", false, true);
+            this.Configuration = builder.Build();
         }
 
-        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
@@ -55,12 +58,17 @@ namespace GetirBank
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseMvc();
+
+            app.UseHttpsRedirection();
+
             app.UseRouting();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapGet("/", async context => { await context.Response.WriteAsync("Hello World!"); });
-            });
+            app.UseAuthorization();
+
+            app.UseAuthentication();
+
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }
 }
