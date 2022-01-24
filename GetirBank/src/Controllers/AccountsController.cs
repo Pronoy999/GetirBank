@@ -57,5 +57,21 @@ namespace GetirBank.Controllers
                 return BadRequest(new BankApiException(new AccountNotFoundException()));
             }
         }
+
+        [HttpGet]
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        public async Task<IActionResult> GetAccountsByCustomerId()
+        {
+            try{
+                var userId = Utils.GetUserId(HttpContext?.User);
+                if (string.IsNullOrEmpty(userId))
+                    return Unauthorized();
+                var accounts = await _accountService.GetAccountsByCustomerId(userId);
+                return Ok(accounts);
+            }
+            catch (CustomerNotFoundException){
+                return BadRequest(new BankApiException(new CustomerNotFoundException()));
+            }
+        }
     }
 }
