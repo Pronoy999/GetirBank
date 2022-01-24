@@ -1,10 +1,13 @@
 using System.Text;
 using FluentValidation.AspNetCore;
 using GetirBank.Database;
+using GetirBank.Database.Repositories;
+using GetirBank.Database.Repositories.Implementations;
+using GetirBank.Services;
+using GetirBank.Services.Implementations;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -49,6 +52,10 @@ namespace GetirBank
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
                 };
             });
+            services.AddTransient<ICustomerService, CustomerService>();
+
+            services.AddTransient<ICustomerRepository, CustomerRepository>();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

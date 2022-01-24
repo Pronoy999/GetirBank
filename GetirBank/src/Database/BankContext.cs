@@ -5,9 +5,9 @@ namespace GetirBank.Database
 {
     public class BankContext : DbContext
     {
-        public DbSet<Customer> Customers;
-        public DbSet<Account> Accounts;
-        public DbSet<Transaction> Transactions;
+        public DbSet<Customer> Customer { get; set; }
+        public DbSet<Account> Accounts { get; set; }
+        public DbSet<Transaction> Transactions { get; set; }
 
         public BankContext(DbContextOptions options) : base(options)
         {

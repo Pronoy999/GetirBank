@@ -58,7 +58,8 @@ namespace GetirBank.Database.Repositories.Implementations
         public Customer GetCustomerByEmail(string emailId)
         {
             try{
-                return _bankContext.Customers.Single(c => c.EmailId.Equals(emailId.ToLower()));
+                var value=_bankContext.Customer.Single(c => c.EmailId.Equals(emailId.ToLower()));
+                return value;
             }
             catch (InvalidOperationException){
                 throw new CustomerNotFoundException();
