@@ -1,5 +1,6 @@
 using System.Text;
 using FluentValidation.AspNetCore;
+using GetirBank.Authentication;
 using GetirBank.Database;
 using GetirBank.Database.Repositories;
 using GetirBank.Database.Repositories.Implementations;
@@ -20,6 +21,7 @@ namespace GetirBank
     public class Startup
     {
         public IConfiguration Configuration { get; }
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -55,7 +57,10 @@ namespace GetirBank
             services.AddTransient<ICustomerService, CustomerService>();
 
             services.AddTransient<ICustomerRepository, CustomerRepository>();
-            
+
+            services.AddTransient<IAuthentication, Authentication.Authentication>();
+
+            services.AddSingleton(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -23,8 +23,8 @@ namespace GetirBank.Controllers
         public async Task<IActionResult> CreateCustomer([FromBody] CreateCustomerDTO request)
         {
             try{
-                var userId = await _customerService.CreateCustomer(request);
-                return Ok(userId);
+                var response = await _customerService.CreateCustomer(request);
+                return Ok(response);
             }
             catch (CustomerAlreadyRegisteredException e){
                 return BadRequest(new BankApiException(e));

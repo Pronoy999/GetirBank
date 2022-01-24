@@ -5,6 +5,6 @@ namespace GetirBank.Services
 {
     public interface ICustomerService
     {
-        public Task<string> CreateCustomer(CreateCustomerDTO request);
+        public Task<CustomerCreateResponse> CreateCustomer(CreateCustomerDTO request);
     }
 }
