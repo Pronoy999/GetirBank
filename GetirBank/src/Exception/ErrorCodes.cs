@@ -6,5 +6,8 @@ namespace GetirBank.Exception
         public const string LastNameMissing = "missing_last_name";
         public const string EmailMissing = "missing_email";
         public const string PasswordMissing = "missing_password";
+
+        public const string AccountTypeMissing = "missing_account_type";
+        public const string AccountBalanceMising = "missing_account_balance";
     }
 }

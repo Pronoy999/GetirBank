@@ -55,10 +55,20 @@ namespace GetirBank.Database.Repositories.Implementations
             return customer.Id;
         }
 
+        public Customer GetCustomerById(string customerId)
+        {
+            try{
+                return _bankContext.Customer.Single(c => c.Id.Equals(customerId.ToLower()));
+            }
+            catch (InvalidOperationException){
+                throw new CustomerNotFoundException();
+            }
+        }
+
         public Customer GetCustomerByEmail(string emailId)
         {
             try{
-                var value=_bankContext.Customer.Single(c => c.EmailId.Equals(emailId.ToLower()));
+                var value = _bankContext.Customer.Single(c => c.EmailId.Equals(emailId.ToLower()));
                 return value;
             }
             catch (InvalidOperationException){
