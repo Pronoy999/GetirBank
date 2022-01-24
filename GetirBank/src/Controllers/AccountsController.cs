@@ -25,6 +25,10 @@ namespace GetirBank.Controllers
         {
             try{
                 var userId = Utils.GetUserId(HttpContext?.User);
+                if (string.IsNullOrEmpty(userId)){
+                    return Unauthorized();
+                }
+
                 var response = await _accountService.CreateAccount(request, userId);
                 return Ok(response);
             }
@@ -33,6 +37,24 @@ namespace GetirBank.Controllers
             }
             catch (System.Exception){
                 return Problem();
+            }
+        }
+
+        [HttpGet("{accountId}")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        public IActionResult GetAccountByAccountId([FromRoute] string accountId)
+        {
+            try{
+                if (accountId == null)
+                    return BadRequest(new BankApiException(new AccountNotFoundException()));
+                var userId = Utils.GetUserId(HttpContext?.User);
+                if (string.IsNullOrEmpty(userId))
+                    return Unauthorized();
+                var account = _accountService.GetAccountById(accountId);
+                return Ok(account);
+            }
+            catch (AccountNotFoundException){
+                return BadRequest(new BankApiException(new AccountNotFoundException()));
             }
         }
     }

@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using GetirBank.Database.Models;
 using GetirBank.Database.Repositories;
 using GetirBank.Dto;
 
@@ -24,6 +26,17 @@ namespace GetirBank.Services.Implementations
                 AccountId = accountId,
                 Balance = request.Balance
             };
+        }
+
+        public Account GetAccountById(string accountId)
+        {
+            return _accountRepository.GetAccountById(accountId);
+        }
+
+        public async Task<List<Account>> GetAccountsByCustomerId(string customerId)
+        {
+            _customerRepository.GetCustomerById(customerId);
+            return await _accountRepository.GetAccountByCustomerId(customerId);
         }
     }
 }
