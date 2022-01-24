@@ -1,11 +1,14 @@
 using System.Text;
+using FluentValidation;
 using FluentValidation.AspNetCore;
 using GetirBank.Authentication;
 using GetirBank.Database;
 using GetirBank.Database.Repositories;
 using GetirBank.Database.Repositories.Implementations;
+using GetirBank.Dto;
 using GetirBank.Services;
 using GetirBank.Services.Implementations;
+using GetirBank.Validators;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -59,6 +62,8 @@ namespace GetirBank
             services.AddTransient<ICustomerRepository, CustomerRepository>();
 
             services.AddTransient<IAuthentication, Authentication.Authentication>();
+
+            services.AddTransient<IValidator<CreateCustomerDTO>, CreateCustomerDtoValidator>();
 
             services.AddSingleton(Configuration);
         }
