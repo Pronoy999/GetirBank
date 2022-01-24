@@ -58,12 +58,15 @@ namespace GetirBank
                 };
             });
             services.AddTransient<ICustomerService, CustomerService>();
+            services.AddTransient<IAuthService, AuthService>();
 
             services.AddTransient<ICustomerRepository, CustomerRepository>();
+            services.AddTransient<IAuthRepository, AuthRepository>();
 
             services.AddTransient<IAuthentication, Authentication.Authentication>();
 
             services.AddTransient<IValidator<CreateCustomerDTO>, CreateCustomerDtoValidator>();
+            services.AddTransient<IValidator<LoginRequest>, LoginRequestValidator>();
 
             services.AddSingleton(Configuration);
         }

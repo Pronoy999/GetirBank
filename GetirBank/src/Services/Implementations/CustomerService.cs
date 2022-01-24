@@ -19,7 +19,7 @@ namespace GetirBank.Services.Implementations
         public async Task<CustomerCreateResponse> CreateCustomer(CreateCustomerDTO request)
         {
             var customerId = await _customerRepository.SaveCustomer(request);
-            return new CustomerCreateResponse()
+            return new CustomerCreateResponse
             {
                 CustomerId = customerId,
                 Token = _authentication.GetToken(customerId)
