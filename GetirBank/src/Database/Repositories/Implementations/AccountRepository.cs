@@ -47,5 +47,18 @@ namespace GetirBank.Database.Repositories.Implementations
         {
             return await _bankContext.Account.Where(a => a.CustomerId.Equals(customerId)).ToListAsync();
         }
+
+        public async Task<bool> UpdateBalance(string accountId, double updatedBalance)
+        {
+            try{
+                var account = GetAccountById(accountId);
+                account.Balance = updatedBalance;
+                await _bankContext.SaveChangesAsync();
+                return true;
+            }
+            catch (AccountNotFoundException){
+                return false;
+            }
+        }
     }
 }

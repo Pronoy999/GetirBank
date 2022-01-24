@@ -20,5 +20,10 @@ namespace GetirBank.Helpers
         {
             return user?.Claims.First(c => c.Type == "id").Value;
         }
+
+        public static string GetTransactionId()
+        {
+            return "trans-" + Guid.NewGuid();
+        }
     }
 }

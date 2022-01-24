@@ -60,10 +60,12 @@ namespace GetirBank
             services.AddTransient<ICustomerService, CustomerService>();
             services.AddTransient<IAuthService, AuthService>();
             services.AddTransient<IAccountService, AccountService>();
+            services.AddTransient<ITransactionService, TransactionService>();
 
             services.AddTransient<ICustomerRepository, CustomerRepository>();
             services.AddTransient<IAuthRepository, AuthRepository>();
             services.AddTransient<IAccountRepository, AccountRepository>();
+            services.AddTransient<ITransactionRepository, TransactionRepository>();
 
             services.AddTransient<IAuthentication, Authentication.Authentication>();
 
