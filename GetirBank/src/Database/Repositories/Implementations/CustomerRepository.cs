@@ -21,7 +21,7 @@ namespace GetirBank.Database.Repositories.Implementations
         {
             Customer customer;
             try{
-                customer = GetCustomerByEmail(customerDto.EmailId);
+                customer = GetCustomerByEmailAndPhone(customerDto.EmailId, customerDto.PhoneNumber);
             }
             catch (CustomerNotFoundException){
                 customer = null;
@@ -65,10 +65,11 @@ namespace GetirBank.Database.Repositories.Implementations
             }
         }
 
-        public Customer GetCustomerByEmail(string emailId)
+        public Customer GetCustomerByEmailAndPhone(string emailId, string phoneNumber)
         {
             try{
-                var value = _bankContext.Customer.Single(c => c.EmailId.Equals(emailId.ToLower()));
+                var value = _bankContext.Customer.Single(c => c.EmailId.Equals(emailId.ToLower())
+                                                              || c.PhoneNumber.Equals(phoneNumber));
                 return value;
             }
             catch (InvalidOperationException){

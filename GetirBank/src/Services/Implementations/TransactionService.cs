@@ -16,13 +16,13 @@ namespace GetirBank.Services.Implementations
             _transactionRepository = transactionRepository;
         }
 
-        public async Task<TransactionResponse> WithDraw(TransactionRequest request)
+        public async Task<TransactionResponse> WithDraw(TransactionRequest request,string customerId)
         {
             var response = new TransactionResponse
             {
                 IsSuccess = false
             };
-            var currentBalance = _accountRepository.GetAccountById(request.AccountId).Balance;
+            var currentBalance = _accountRepository.GetAccountByIdAndCustomerId(request.AccountId,customerId).Balance;
             if (request.Balance > currentBalance)
                 throw new InsufficientBalanceException();
             var newBalance = currentBalance - request.Balance;
@@ -36,13 +36,13 @@ namespace GetirBank.Services.Implementations
             return response;
         }
 
-        public async Task<TransactionResponse> Deposit(TransactionRequest request)
+        public async Task<TransactionResponse> Deposit(TransactionRequest request,string customerId)
         {
             var response = new TransactionResponse
             {
                 IsSuccess = false
             };
-            var currentBalance = _accountRepository.GetAccountById(request.AccountId).Balance;
+            var currentBalance = _accountRepository.GetAccountByIdAndCustomerId(request.AccountId,customerId).Balance;
             var newBalance = currentBalance + request.Balance;
             var isSuccessTransaction = await _transactionRepository.PerformTransaction(request);
             if (!isSuccessTransaction)

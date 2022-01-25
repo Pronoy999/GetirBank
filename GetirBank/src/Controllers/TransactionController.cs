@@ -29,8 +29,8 @@ namespace GetirBank.Controllers
                     return Unauthorized();
                 return request.TransactionType switch
                 {
-                    TransactionTypes.Credit => Ok(await _transactionService.Deposit(request)),
-                    TransactionTypes.Debit => Ok(await _transactionService.WithDraw(request)),
+                    TransactionTypes.Credit => Ok(await _transactionService.Deposit(request, customerId)),
+                    TransactionTypes.Debit => Ok(await _transactionService.WithDraw(request, customerId)),
                     _ => BadRequest()
                 };
             }

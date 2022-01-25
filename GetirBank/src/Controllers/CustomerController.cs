@@ -26,8 +26,8 @@ namespace GetirBank.Controllers
                 var response = await _customerService.CreateCustomer(request);
                 return Ok(response);
             }
-            catch (CustomerAlreadyRegisteredException e){
-                return BadRequest(new BankApiException(e));
+            catch (CustomerAlreadyRegisteredException){
+                return BadRequest(new BankApiException(new CustomerAlreadyRegisteredException()));
             }
         }
     }
