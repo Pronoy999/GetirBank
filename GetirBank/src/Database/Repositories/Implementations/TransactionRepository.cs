@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using GetirBank.Database.Models;
@@ -26,7 +26,7 @@ namespace GetirBank.Database.Repositories.Implementations
                     AccountId = request.AccountId,
                     Amount = request.Balance,
                     TransactionType = request.TransactionType.ToString(),
-                    CreatedAt = System.DateTime.Now
+                    CreatedAt = DateTime.Now
                 });
                 await _bankContext.SaveChangesAsync();
                 return true;
@@ -36,12 +36,26 @@ namespace GetirBank.Database.Repositories.Implementations
             }
         }
 
-        public async Task<List<Transaction>> GetTransactions(TransactionQueryRequest request)
+        public async Task<TransactionQueryResponse> GetTransactions(TransactionQueryRequest request)
         {
-            return await _bankContext.Transaction
+            var listOfTrans = await _bankContext.Transaction
                 .Where(x => x.AccountId.Equals(request.AccountId) &&
-                            (x.CreatedAt >= request.StartDate && x.CreatedAt <= request.EndDate))
+                            (x.CreatedAt.Date >= request.StartDate.Date && x.CreatedAt.Date <= request.EndDate))
                 .ToListAsync();
+            foreach (var oneTransaction in listOfTrans){
+                oneTransaction.Account.Transactions = null;
+            }
+
+            var response = new TransactionQueryResponse
+            {
+                Account = listOfTrans?.FirstOrDefault()?.Account,
+                Transactions = listOfTrans
+            };
+            foreach (var oneTransaction in response.Transactions){
+                oneTransaction.Account = null;
+            }
+
+            return response;
         }
     }
 }
