@@ -53,10 +53,17 @@ namespace GetirBank.Services.Implementations
             return response;
         }
 
-        public async Task<TransactionQueryResponse> GetTransactions(TransactionQueryRequest request, string customerId)
+        public async Task<TransactionQueryResponse> GetTransactionsByDate(TransactionQueryRequest request,
+            string customerId)
         {
             _accountRepository.GetAccountByIdAndCustomerId(request.AccountId, customerId);
-            return await _transactionRepository.GetTransactions(request);
+            return await _transactionRepository.GetTransactionsByDate(request);
+        }
+
+        public async Task<TransactionQueryResponse> GetTransactionsByAccountId(string accountId, string customerId)
+        {
+            _accountRepository.GetAccountByIdAndCustomerId(accountId, customerId);
+            return await _transactionRepository.GetTransactionsByAccount(accountId);
         }
     }
 }

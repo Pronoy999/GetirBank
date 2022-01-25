@@ -7,6 +7,7 @@ namespace GetirBank.Services
     {
         public Task<TransactionResponse> WithDraw(TransactionRequest request);
         public Task<TransactionResponse> Deposit(TransactionRequest request);
-        public Task<TransactionQueryResponse> GetTransactions(TransactionQueryRequest request,string customerId);
+        public Task<TransactionQueryResponse> GetTransactionsByDate(TransactionQueryRequest request, string customerId);
+        public Task<TransactionQueryResponse> GetTransactionsByAccountId(string accountId, string customerId);
     }
 }

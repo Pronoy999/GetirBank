@@ -30,12 +30,9 @@ namespace GetirBank
             Configuration = configuration;
             var builder = new ConfigurationBuilder()
                 .AddJsonFile("src/appsettings.json", false, true);
-            this.Configuration = builder.Build();
+            Configuration = builder.Build();
         }
-
-
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+        
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvcCore().AddAuthorization();
@@ -73,11 +70,11 @@ namespace GetirBank
             services.AddTransient<IValidator<LoginRequest>, LoginRequestValidator>();
             services.AddTransient<IValidator<CreateAccountRequest>, CreateAccountRequestValidator>();
             services.AddTransient<IValidator<TransactionRequest>, TransactionRequestValidator>();
+            services.AddTransient<IValidator<TransactionQueryRequest>, TransactionQueryRequestValidator>();
 
             services.AddSingleton(Configuration);
         }
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment()){
