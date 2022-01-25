@@ -11,5 +11,6 @@ namespace GetirBank.Database.Repositories
         public Account GetAccountById(string accountId);
         public Task<List<Account>> GetAccountByCustomerId(string customerId);
         public Task<bool> UpdateBalance(string accountId, double updatedBalance);
+        public Account GetAccountByIdAndCustomerId(string accountId, string customerId);
     }
 }

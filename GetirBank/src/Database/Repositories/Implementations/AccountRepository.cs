@@ -61,5 +61,15 @@ namespace GetirBank.Database.Repositories.Implementations
                 return false;
             }
         }
+
+        public Account GetAccountByIdAndCustomerId(string accountId, string customerId)
+        {
+            try{
+                return _bankContext.Account.Single(x => x.Id.Equals(accountId) && x.CustomerId.Equals(customerId));
+            }
+            catch (InvalidOperationException){
+                throw new AccountNotFoundException();
+            }
+        }
     }
 }

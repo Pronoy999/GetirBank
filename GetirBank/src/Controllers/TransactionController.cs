@@ -41,5 +41,20 @@ namespace GetirBank.Controllers
                 return BadRequest(new BankApiException(new InsufficientBalanceException()));
             }
         }
+
+        [HttpGet]
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        public async Task<IActionResult> GetTransactions([FromQuery] TransactionQueryRequest request)
+        {
+            try{
+                var customerId = Utils.GetUserId(HttpContext?.User);
+                if (string.IsNullOrEmpty(customerId))
+                    return Unauthorized();
+                return Ok(await _transactionService.GetTransactions(request, customerId));
+            }
+            catch (AccountNotFoundException){
+                return BadRequest(new BankApiException(new AccountNotFoundException()));
+            }
+        }
     }
 }

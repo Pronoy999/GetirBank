@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using GetirBank.Database.Models;
 using GetirBank.Database.Repositories;
 using GetirBank.Dto;
 using GetirBank.Exception;
@@ -51,6 +53,12 @@ namespace GetirBank.Services.Implementations
             if (isBalanceUpdated)
                 response.IsSuccess = true;
             return response;
+        }
+
+        public async Task<List<Transaction>> GetTransactions(TransactionQueryRequest request, string customerId)
+        {
+            _accountRepository.GetAccountByIdAndCustomerId(request.AccountId, customerId);
+            return await _transactionRepository.GetTransactions(request);
         }
     }
 }
