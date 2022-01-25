@@ -50,7 +50,7 @@ namespace GetirBank.Controllers
                 var userId = Utils.GetUserId(HttpContext?.User);
                 if (string.IsNullOrEmpty(userId))
                     return Unauthorized();
-                var account = _accountService.GetAccountById(accountId);
+                var account = _accountService.GetAccountByIdAndCustomerId(userId, accountId);
                 return Ok(account);
             }
             catch (AccountNotFoundException){

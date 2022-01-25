@@ -38,5 +38,10 @@ namespace GetirBank.Services.Implementations
             _customerRepository.GetCustomerById(customerId);
             return await _accountRepository.GetAccountByCustomerId(customerId);
         }
+
+        public Account GetAccountByIdAndCustomerId(string customerId, string accountId)
+        {
+            return _accountRepository.GetAccountByIdAndCustomerId(accountId, customerId);
+        }
     }
 }

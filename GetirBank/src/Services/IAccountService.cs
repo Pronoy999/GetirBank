@@ -10,5 +10,6 @@ namespace GetirBank.Services
         public Task<CreateAccountResponse> CreateAccount(CreateAccountRequest request, string userId);
         public Account GetAccountById(string accountId);
         public Task<List<Account>> GetAccountsByCustomerId(string customerId);
+        public Account GetAccountByIdAndCustomerId(string customerId, string accountId);
     }
 }
