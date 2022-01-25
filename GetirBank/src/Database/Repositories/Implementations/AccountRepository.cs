@@ -26,7 +26,8 @@ namespace GetirBank.Database.Repositories.Implementations
                 Id = Utils.GenerateAccountId(),
                 AccountType = request.AccountType,
                 Balance = request.Balance,
-                CustomerId = customerId
+                CustomerId = customerId,
+                CreatedAt = DateTime.Now
             };
             _bankContext.Account.Add(account);
             await _bankContext.SaveChangesAsync();

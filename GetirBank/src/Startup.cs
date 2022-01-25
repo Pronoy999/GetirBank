@@ -72,6 +72,7 @@ namespace GetirBank
             services.AddTransient<IValidator<CreateCustomerDTO>, CreateCustomerDtoValidator>();
             services.AddTransient<IValidator<LoginRequest>, LoginRequestValidator>();
             services.AddTransient<IValidator<CreateAccountRequest>, CreateAccountRequestValidator>();
+            services.AddTransient<IValidator<TransactionRequest>, TransactionRequestValidator>();
 
             services.AddSingleton(Configuration);
         }

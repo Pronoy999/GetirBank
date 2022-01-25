@@ -14,7 +14,7 @@ namespace GetirBank.Validators
                 .WithState(_ => ErrorCodes.AccountTypeMissing);
             RuleFor(x => x.Balance)
                 .NotEmpty()
-                .WithState(_ => ErrorCodes.AccountBalanceMising);
+                .WithState(_ => ErrorCodes.AccountBalanceMissing);
         }
     }
 }
